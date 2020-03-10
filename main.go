@@ -21,13 +21,19 @@ func main() {
 	l := log.New(os.Stdout, "products-api ", log.LstdFlags)
 
 	// create the handlers
-	hh := handlers.NewHello(l)
-	gh := handlers.NewGoodbye(l)
+	// OLD Routes, keeping for prosperity. Otherwise would be removed
+	// hh := handlers.NewHello(l)
+	// gh := handlers.NewGoodbye(l)
+	// RESTful Route
+	ph := handlers.NewProducts(l)
 
 	// create a new serve mux and register the handlers
 	sm := http.NewServeMux()
-	sm.Handle("/", hh)
-	sm.Handle("/goodbye", gh)
+	// old hello and goodbye mux
+	//sm.Handle("/", hh)
+	//sm.Handle("/goodbye", gh)
+	// RESTFUL Mux start
+	sm.Handle("/", ph)
 
 	// create a new server
 	s := http.Server{
