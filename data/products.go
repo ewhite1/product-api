@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"io"
 	"time"
+	"github.com/go-playground/validator/v10"
 )
 
 // Product define the structure for the API, with a Staticly defined data before we introduce a db
 type Product struct {
 	ID          int     `json:"id"`
-	Name        string  `json:"name"`
+	Name        string  `json:"name" validate:"required"`
 	Description string  `json:"description"`
 	Price       float32 `json:"price"`
 	SKU         string  `json:"sku"`
@@ -20,6 +21,12 @@ type Product struct {
 }
 
 type Products []*Product
+
+func (p*Product) Validate() error {
+	validate := validator.New()
+	return validate.Struct(p)
+	
+}
 
 // toJSON serializes the conents of the collection to JSON. Provides better performance than json.Unmarshal.
 // This reduces the allocation and the overhead of the service
