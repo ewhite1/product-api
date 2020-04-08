@@ -1,17 +1,4 @@
-// Package Classfication of Product API
-//
-// Documentation for Product API
-//
-// Scheme: http
-// BasePath: /
-// Version: 1.0.0
-//
-// Consumes:
-// - application/json
-//
-// Produces:
-// - application/json
-// swagger:meta
+
 package handlers
 
 import (
@@ -23,6 +10,7 @@ import (
 	"github.com/ewhite1/product-api/data"
 	"github.com/gorilla/mux"
 )
+
 
 // KeyProduct is a key used for the Product object in the context
 type KeyProduct struct{}

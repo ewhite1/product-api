@@ -3,8 +3,9 @@ module github.com/ewhite1/product-api
 go 1.14
 
 require (
+	github.com/PacktPublishing/Building-Microservices-with-Go-Second-Edition/product-api v0.0.0-20200323113216-8e0062707f20
 	github.com/acroca/go-symbols v0.1.1 // indirect
-	github.com/go-openapi/runtime v0.19.15 // indirect
+	github.com/go-openapi/runtime v0.19.15
 	github.com/go-playground/validator v9.31.0+incompatible
 	github.com/go-playground/validator/v10 v10.2.0
 	github.com/go-swagger/go-swagger v0.23.0 // indirect
