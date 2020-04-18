@@ -9,7 +9,7 @@ import (
 // swagger:route GET /products products listProducts
 // Return a list of products from the database
 // responses:
-// 		200: productResponse
+// 	 200: productResponse
 
 // ListAll handles GET requests and returns all current products
 func (p *Products) ListAll(rw http.ResponseWriter, r *http.Request) {
@@ -24,11 +24,11 @@ func (p *Products) ListAll(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// swagger:route GET /product/{id} proudcts listSingle
+// swagger:route GET /product/{id} proudcts listSingleProduct
 // Return a list of products from the database
 // reponses:
-// 200: productResponse
-// 404: errorRepsonse
+// 	 200: productResponse
+// 	 404: errorRepsonse
 
 // ListSingle handles GET requests
 func (p *Products) ListSingle(rw http.ResponseWriter, r *http.Request) {

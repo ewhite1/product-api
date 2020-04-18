@@ -11,6 +11,7 @@ import (
 	"github.com/ewhite1/product-api/data"
 	"github.com/ewhite1/product-api/handlers"
 	"github.com/go-openapi/runtime/middleware"
+	gohandlers "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/nicholasjackson/env"
 )
@@ -36,7 +37,8 @@ func main() {
 
 	getRouter := sm.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/products", ph.ListAll)
-	getRouter.HandleFunc("/proudct/{id:[0-9]+}", ph.ListSingle)
+	getRouter.HandleFunc("/products/{id:[0-9]+}", ph.ListSingle)
+	getRouter.HandleFunc("/product/{id:[0-9]+}", ph.ListSingle)
 
 	putRouter := sm.Methods(http.MethodPut).Subrouter()
 	putRouter.HandleFunc("/{id:[0-9]+}", ph.Update)
@@ -48,18 +50,19 @@ func main() {
 
 	deleteRouter := sm.Methods(http.MethodDelete).Subrouter()
 	deleteRouter.HandleFunc("/products/{id:[0-9]+}", ph.Delete)
-
+	// handler for documentations(failing right now)
 	opts := middleware.RedocOpts{SpecURL: "/swagger.yaml"}
 	sh := middleware.Redoc(opts, nil)
 	getRouter.Handle("/docs", sh)
 	getRouter.Handle("/swagger.yaml", http.FileServer(http.Dir("./")))
-
+	// Handler for CORS
+	ch := gohandlers.CORS(gohandlers.AllowedOrigins([]string{"http://localhosts:3000"}))
 	//sm.Handle("/products", ph)
 
 	// create a new server
 	s := http.Server{
 		Addr:         *bindAddress,      // configure the bind address
-		Handler:      sm,                // set the default handler
+		Handler:      ch(sm),            // set the default handler
 		ErrorLog:     l,                 // set the logger for the server
 		ReadTimeout:  5 * time.Second,   // max time to read request from the client
 		WriteTimeout: 10 * time.Second,  // max time to write response to the client
